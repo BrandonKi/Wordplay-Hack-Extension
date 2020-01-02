@@ -3,7 +3,7 @@ chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         console.log(request.message);
       if(request.message == "login"){
-          chrome.runtime.sendMessage({});
+          chrome.runtime.sendMessage({message:"login"});
       }
       else if( request.message === "clicked_browser_action" ) {
         var firstHref = 'https://wordplay.com/login';

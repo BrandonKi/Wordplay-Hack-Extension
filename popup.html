@@ -1,9 +1,82 @@
 <html >
+    <style>
+        h1 {
+            margin-bottom: 0;
+        }
+        body {
+            text-align: center;
+            background-color: #12B1FD;
+            margin-top: 0em;
+            margin-bottom: 0em;
+            margin-left: 0.1em;
+            margin-right: 0.1em;
+        }
+        p {
+            margin-top: 1em;
+        }
+        .information-box {
+            text-align: left;
+            border-radius: 2px;
+            margin-top: 1.7em;
+            margin-bottom: 1em;
+            margin-left: 1em;
+            margin-right: 1em;
+            background-color: #FFFFFF;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        .center{
+            background-color: #FFFFFF;
+            text-align: center;
+            border-radius: 10px;
+        }
+        .container{
+            background-color: #FFFFFF;
+            text-align: left;
+            border-radius: 10px;
+        }
+        hr {
+            display: block;
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+            margin-left: auto;
+            margin-right: auto;
+            border-style: inset;
+            border-width: 10px;
+        }
+        button {
+            width: 50px;
+            height: 30px;
+            margin-bottom: 0.5em;
+            border-color: #12B1FD;
+            border-radius: 2px;
+            color: #FFFFFF;
+            background-color: #12B1FD;
+            font-size: 10;
+        }
+        input {
+            margin: 1em;
+            margin-top: 0.2em;
+            background-color: #E8F0FE;
+        }
+    </style>
     <body>
-        <h1>Login</h1>
-        <input id="username"></input>
-        <input id="password"></input>
-        <button id='button'>Enter</button>
+        <br>
+        <img src="logo.png">
+        <br>
+        <div class="information-box">
+            <div class="container">
+
+                <p>Username:</p>
+                <input id="username"></input>
+            </div>
+            <div class="container">
+                <p>Password:</p>
+                <input id="password"></input>
+            </div>
+            <div class="center">
+            <button id='button'>Login</button>
+            </div>
+        </div>
         <script src='popupScript.js'></script>
     </body>
 </html>
