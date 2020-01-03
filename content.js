@@ -11,10 +11,12 @@ chrome.runtime.onMessage.addListener(
         chrome.runtime.sendMessage({"message": "open_new_tab", "url": firstHref});
       }
       else if (request.message === "done-loading"){
-          var el = document.getElementById('username');
-          el.value = request.username;
-          el = document.getElementById('password');
-          el.value = request.password;
+          const username = document.getElementById('username');
+          username.value = request.username;
+          username.dispatchEvent(new Event('change'));
+          const password = document.getElementById('password');
+          password.value = request.password;
+          password.dispatchEvent(new Event('change'));
       }
     }
   );
