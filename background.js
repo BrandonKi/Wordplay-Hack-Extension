@@ -18,16 +18,10 @@ var activeTab;
       else if(request.message === "open_new_tab") {
         chrome.tabs.create({"url": request.url});
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-            chrome.storage.sync.get(['name'], function(result) {
+            chrome.storage.local.get(['name'], function(result) {
                 username = result.name;
-                chrome.storage.sync.get(['pass'], function(result) {
+                chrome.storage.local.get(['pass'], function(result) {
                   password = result.pass;
-                  // var des = confirm("Please Confirm Username and PasswordUsername: " + username + "\nPassword: " + password);
-                  // if (des){
-                    
-                  // } else {
-                  //     throw new Error("Incorrect Username and Password");
-                  // }
                 });
               });
               activeTab = tabs[0];
@@ -35,6 +29,8 @@ var activeTab;
         setTimeout( function() {
           chrome.tabs.sendMessage(activeTab.id, {"message": "done-loading", username: username, password: password});
         }, 1000);
+      }else if(request.message == 'navigate_to'){
+        chrome.tabs.create({"url": request.url});
       }
     }
   );

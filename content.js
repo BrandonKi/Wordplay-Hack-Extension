@@ -1,4 +1,6 @@
 // content.js
+var data;
+var amount;
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         console.log(request.message);
@@ -19,26 +21,62 @@ chrome.runtime.onMessage.addListener(
         password.focus();
         document.execCommand('insertText', false, request.password);
         login.click();
-        waitForElementToDisplay("/html/body/div/div/div/div/div[3]/div[1]/div/div[2]/div[2]/div", 100, function(element){
-          simulateClick(element);
-          waitForElementToDisplay("/html/body/div/div/div/div/div[2]/div[2]/div/a", 100, function(element){
-            simulateClick(element);
-            waitForElementToDisplay("/html/body/div/div/div/div/h2", 100, function(element){
-              var arr = document.getElementsByClassName("word-line");
-              var data;
-              for(let item of arr){
-                if(typeof item.children[0] != 'undefined' && typeof item.children[1] != 'undefined'){
-                  data += item.children[0].innerHTML + " : " + item.children[1].innerHTML + "|";
-                }
-              }
-              data = data.substring(9);
+        chrome.storage.local.get(['data'], function(result){
+          if(typeof result.data == 'undefined'){
+            waitForElementToDisplay("/html/body/div/div/div/div/div[3]/div[1]/div/div[2]/div[2]/div", 100, function(element){
+              simulateClick(element);
+              waitForElementToDisplay("/html/body/div/div/div/div/div[2]/div[2]/div/a", 100, function(element){
+                simulateClick(element);
+                waitForElementToDisplay("/html/body/div/div/div/div/h2", 100, function(element){
+                  var arr = document.getElementsByClassName("word-line");
+                  var dataStr;
+                  for(let item of arr){
+                    if(typeof item.children[0] != 'undefined' && typeof item.children[1] != 'undefined'){
+                      dataStr += item.children[0].innerHTML + '|' + item.children[1].innerHTML + '|';
+                    }
+                  }
+                  dataStr = dataStr.substring(9);
+                  console.log(dataStr);
+                  chrome.storage.local.set({data: dataStr});
+                  chrome.storage.local.get(['data'], function(result){
+                    data = toArray(result.data);
+                    console.log(data);
+                    window.location.href = 'https://wordplay.com/account';
+                    //chrome.runtime.sendMessage({"message": "navigate_to", "url": 'https://wordplay.com/account'});
+                    waitForElementToDisplay("/html/body/div/div/div/div/div[3]/div[2]/div[1]/div[2]/div[2]/a", 100, function(element){
+                      amount = parseInt(getElementByXpath('/html/body/div/div/div/div/div[3]/div[2]/div[1]/div[2]/div[1]/div[2]/div/div[3]/h5').innerHTML, 10) + parseInt(getElementByXpath('/html/body/div/div/div/div/div[3]/div[2]/div[1]/div[2]/div[1]/div[2]/div/div[2]/h5').innerHTML, 10);
+                      console.log(amount);
+                      setTimeout(function(){
+                        simulateClick(element);
+                      }, 10);
+                    });
+                  });
+                });
+              }); 
+            });  
+          }else{
+            chrome.storage.local.get(['data'], function(result){
+              data = toArray(result.data);
               console.log(data);
+              waitForElementToDisplay("/html/body/div/div/div/div/div[3]/div[2]/div[1]/div[2]/div[2]/a", 100, function(element){
+                amount = parseInt(getElementByXpath('/html/body/div/div/div/div/div[3]/div[2]/div[1]/div[2]/div[1]/div[2]/div/div[3]/h5').innerHTML, 10) + parseInt(getElementByXpath('/html/body/div/div/div/div/div[3]/div[2]/div[1]/div[2]/div[1]/div[2]/div/div[2]/h5').innerHTML, 10);
+                console.log(amount);
+                setTimeout(function(){
+                  simulateClick(element);
+                }, 10);
+                
+              });
             });
-          });
-        });  
+          }
+        });
+        
       }
     }
   );
+
+  function toArray(string){
+    return string.split('|');
+  }
 
   function getElementByXpath(path) {
     return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
@@ -47,6 +85,7 @@ chrome.runtime.onMessage.addListener(
 
 function waitForElementToDisplay(xpath, time, callback) {
   selector = getElementByXpath(xpath);
+  console.log(selector);
   if(selector!=null) {
       callback(selector);
       return;
