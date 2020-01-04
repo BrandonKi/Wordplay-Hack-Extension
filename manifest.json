@@ -4,7 +4,8 @@
     "version": "0.1",
 
     "permissions": [
-        "storage"
+        "storage",
+        "unlimitedStorage"
     ],
 
     "content_scripts": [
