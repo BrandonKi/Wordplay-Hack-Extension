@@ -7,7 +7,6 @@ chrome.storage.local.get(['name'], function (result) {
     });
 });
 document.getElementById('button').addEventListener("click", function () {
-    console.log(u.value + " " + p.value);
     chrome.storage.local.set({ name: u.value });
     chrome.storage.local.set({ pass: p.value });
     chrome.tabs.query({ active: true }, function (tabs) {

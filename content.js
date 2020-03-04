@@ -83,7 +83,6 @@ function startQuestionLoop() {
                 submitButton.click();
             }, 10);
             if(getElementByXpath('/html/body/div/div/div[1]/div[2]/div[2]/div[2]/div/div[1]/div/p').textContent.indexOf('T') != -1){
-              console.log(1111);
               insertText(inputBox, getElementByXpath('/html/body/div/div/div[1]/div[2]/div[2]/div[2]/div/div[1]/div/p').textContent.substring(5), function(){
                 setTimeout(function(){
                   if(inputBox.value != "")
