@@ -115,7 +115,7 @@ function insertText(input, value, callback){
 
 function find(searchFor){
   for(let i = 0; i < data.length; i++){
-    if(data[i] == searchFor || data[i] === searchFor.substring(0,'['))
+    if(data[i] == searchFor || data[i].substring(0, data[i].indexOf('[') == searchFor))
       if(i % 2 === 0)
         return data[i+1];
       else if (i % 2 === 1)

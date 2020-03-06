@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Wordplay Bot",
-  "version": "0.3",
+  "version": "0.4",
   "permissions": [
     "storage",
     "unlimitedStorage"
