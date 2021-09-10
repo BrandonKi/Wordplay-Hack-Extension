@@ -1,3 +1,6 @@
+# UPDATE
+ The site has shut down :(
+
 # Wordplay-Hack-Extension
  Chrome extension to automatically do wordplay review(spanish website)
  
